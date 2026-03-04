@@ -1,0 +1,16 @@
+version: 2
+
+sources:
+  - name: oliver_landing
+    database: graciemoyes
+    schema: oliver_dw_source
+    tables:
+      - name: employee
+      - name: orderline
+      - name: customer
+      - name: orders
+      
+      - name: product
+
+      
+      - name: store
