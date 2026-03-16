@@ -13,3 +13,7 @@ models:
     description: "Oliver Claim Fact"
   - name: oliver_dim_store
     description: "Oliver store Fact"
+  - name: fact_certification
+    description: "Oliver Fact Certifications - for each employee"
+  - name: stg_employee_certifications
+    description: "stg employee certifications - staging table"

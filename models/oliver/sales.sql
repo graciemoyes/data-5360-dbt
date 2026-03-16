@@ -1,7 +1,7 @@
 
   {{ config(
     materialized = 'table',
-    schema = 'oliver_dw_source'
+    schema = 'oliver_dw'
     )
 }}
 
