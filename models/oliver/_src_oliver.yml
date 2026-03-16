@@ -12,5 +12,8 @@ sources:
       
       - name: product
 
+            
+      - name: employee_certifications
+
       
       - name: store
