@@ -9,7 +9,7 @@ sources:
       - name: order
       - name: order_line
       - name: product
-      - name: Promotional_campaign
+      - name: promotional_campaign
   - name: eco_email_src
     database: graciemoyes
     schema: s3_ecoessentials

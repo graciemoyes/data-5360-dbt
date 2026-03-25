@@ -1,0 +1,21 @@
+version: 2
+
+models:
+  - name: eco_dim_customer
+    description: "Customer Dimensions"
+  - name: eco_dim_date
+    description: "Date Dimension"
+  - name: eco_dim_campaign
+    description: "Campaign Dimension"
+  - name: eco_dim_product
+    description: "Product Dimension"
+  - name: eco_dim_email
+    description: "Email Dimension"
+  - name: eco_dim_event
+    description: "Event Dimension"
+  - name: eco_dim_time
+    description: "Time Dimension"
+  - name: eco_fact_sales
+    description: "Sales fact"
+  - name: eco_fact_marketingemail
+    description: "Marketing Email fact"
