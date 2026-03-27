@@ -1,0 +1,17 @@
+version: 2
+
+sources:
+  - name: eco_transactional_src
+    database: graciemoyes
+    schema: ecoessentials_transactional_db
+    tables:
+      - name: customer
+      - name: order
+      - name: order_line
+      - name: product
+      - name: promotional_campaign
+  - name: eco_email_src
+    database: graciemoyes
+    schema: s3_ecoessentials
+    tables:
+        - name: marketingemails
