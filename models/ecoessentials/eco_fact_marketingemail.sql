@@ -1,29 +1,35 @@
 {{ config(
-    materialized='table',
-    schema='ecoessentials_dw'
+    materialized = 'table',
+    schema = 'ecoessentials_dw'
 ) }}
 
 SELECT
-    e.cust_key,
-    e.campaign_key,
+    t.time_key,
     d.date_key,
-    e.email_key,
+    cu.custkey,
+    c.campaign_key,
     e.event_key,
-    t.time_key
-FROM {{ ref('stg_marketing_emails') }} e
+    em.email_key
 
--- Join to customer dimension if needed
-INNER JOIN {{ ref('eco_dim_customer') }} c
-    ON e.cust_key = c.customer_id
+FROM {{ source ('eco_email_src', 'marketingemails') }} me
 
--- Join to campaign dimension
-INNER JOIN {{ ref('eco_dim_campaign') }} ca
-    ON e.campaign_key = ca.campaign_id
+JOIN {{ ref('eco_dim_date') }} d
+    ON d.date_day = CAST(me.eventtimestamp AS DATE)
 
--- Join to date dimension
-INNER JOIN {{ ref('eco_dim_date') }} d
-    ON e.event_date = d.date_day  -- adjust if your dim_date uses `date_key`
+JOIN {{ ref('eco_dim_time') }} t
+    ON t.time_key = TO_CHAR(me.eventtimestamp, 'HH24MISS')
 
--- Join to time dimension
-INNER JOIN {{ ref('eco_dim_time') }} t
-    ON e.event_time = t.time_key
+-- could be duplicates, but there are missing customerids in the source table
+JOIN {{ ref('eco_dim_customer') }} cu
+    ON cu.customer_first_name = me.subscriberfirstname
+    AND cu.customer_last_name = me.subscriberlastname
+    AND cu.customer_email = me.subscriberemail
+
+JOIN {{ ref('eco_dim_campaign') }} c
+    ON c.campaign_id = me.campaignid
+
+JOIN {{ ref('eco_dim_event') }} e
+    ON e.emaileventid = me.emaileventid
+
+JOIN {{ ref('eco_dim_email') }} em
+    ON em.emailid = me.emailid
