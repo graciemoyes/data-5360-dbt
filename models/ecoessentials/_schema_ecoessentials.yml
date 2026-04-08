@@ -3,6 +3,7 @@ version: 2
 models:
   - name: eco_dim_customer
     description: "Customer Dimensions"
+    columns:  
       - name: custkey
         tests:
           - not_null
@@ -19,7 +20,7 @@ models:
       - name: campaign_key
         tests:
           - unique
-  - name: eco_dim_product
+  - name: eco_dim_products
     description: "Product Dimension"
     columns:
       - name: product_name
