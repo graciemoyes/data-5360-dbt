@@ -3,13 +3,9 @@ version: 2
 models:
   - name: eco_dim_customer
     description: "Customer Dimensions"
-    columns:
       - name: custkey
         tests:
-          - relationships:
-              arguments:
-                to: ref('eco_fact_sales') # the model you want to compare to
-                field: custkey # the field on the model you want to compare to
+          - not_null
   - name: eco_dim_date
     description: "Date Dimension"
     columns:
@@ -53,11 +49,12 @@ models:
         tests:
           - not_null
   - name: eco_fact_sales
-    description: "Sales fact"
     columns:
-      - name: product_key
+      - name: custkey
         tests:
-          - not_null
+          - relationships:
+              to: ref('eco_dim_customer')
+              field: custkey
   - name: eco_fact_marketingemail
     description: "Marketing Email fact"
     columns:
