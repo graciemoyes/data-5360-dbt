@@ -8,12 +8,13 @@ models:
         tests:
           - relationships:
               arguments:
-                to: ref('eco_fact_sales')
-                field: cust_key
+                to: ref('eco_fact_sales') # the model you want to compare to
+                field: cust_key # the field on the model you want to compare to
   - name: eco_dim_date
     description: "Date Dimension"
     columns:
       - name: date_key
+        # description: "A foreign key to the customer dimension"
         tests:
           - not_null
   - name: eco_dim_campaign
@@ -22,7 +23,7 @@ models:
       - name: campaign_key
         tests:
           - unique
-  - name: eco_dim_products
+  - name: eco_dim_product
     description: "Product Dimension"
     columns:
       - name: product_name
@@ -48,7 +49,7 @@ models:
   - name: eco_dim_time
     description: "Time Dimension"
     columns:
-      - name: date_key
+      - name: time_key
         tests:
           - not_null
   - name: eco_fact_sales
@@ -58,8 +59,8 @@ models:
         tests:
           - relationships:
               arguments:
-                to: ref('eco_dim_email')
-                field: email_key
+                to: ref('eco_dim_email') # the model you want to compare to
+                field: email_key # the field on the model you want to compare to
   - name: eco_fact_marketingemail
     description: "Marketing Email fact"
     columns:
