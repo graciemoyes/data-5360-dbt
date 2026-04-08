@@ -54,8 +54,9 @@ models:
       - name: custkey
         tests:
           - relationships:
-              to: ref('eco_dim_customer')
-              field: custkey
+              arguments:
+                to: ref('eco_dim_customer')
+                field: custkey
   - name: eco_fact_marketingemail
     description: "Marketing Email fact"
     columns:
