@@ -3,19 +3,66 @@ version: 2
 models:
   - name: eco_dim_customer
     description: "Customer Dimensions"
+    columns:
+      - name: cust_key
+        tests:
+          - relationships:
+              arguments:
+                to: ref('eco_fact_sales')
+                field: cust_key
   - name: eco_dim_date
     description: "Date Dimension"
+    columns:
+      - name: date_key
+        tests:
+          - not_null
   - name: eco_dim_campaign
     description: "Campaign Dimension"
-  - name: eco_dim_product
+    columns:
+      - name: campaign_key
+        tests:
+          - unique
+  - name: eco_dim_products
     description: "Product Dimension"
+    columns:
+      - name: product_name
+        tests:
+          - unique
   - name: eco_dim_email
     description: "Email Dimension"
+    columns:
+      - name: email_key
+        tests:
+          - not_null
   - name: eco_dim_event
     description: "Event Dimension"
+    columns:
+      - name: eventtype
+        tests:
+          - accepted_values:
+              arguments:
+                values:
+                  - "OPEN"
+                  - "SENT"
+                  - "CLICK"
   - name: eco_dim_time
     description: "Time Dimension"
+    columns:
+      - name: date_key
+        tests:
+          - not_null
   - name: eco_fact_sales
     description: "Sales fact"
+    columns:
+      - name: email_key
+        tests:
+          - relationships:
+              arguments:
+                to: ref('eco_dim_email')
+                field: email_key
   - name: eco_fact_marketingemail
     description: "Marketing Email fact"
+    columns:
+      - name: time_key
+        tests:
+          - not_null

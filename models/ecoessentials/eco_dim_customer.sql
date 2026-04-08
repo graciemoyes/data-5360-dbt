@@ -6,8 +6,8 @@
 SELECT
 {{ dbt_utils.generate_surrogate_key(['customer_id', 'Customer_First_Name', 'Customer_Last_Name']) }} as custkey,
 customer_id,
-Customer_First_Name,
-Customer_Last_Name,
+COALESCE(t.Customer_First_Name, me.subscriberfirstname) as Customer_First_Name,
+COALESCE(t.Customer_Last_Name, me.subscriberlastname) as Customer_Last_Name,
 Customer_Phone,
 Customer_Address,
 Customer_City,
@@ -17,5 +17,5 @@ Customer_Country,
 Customer_Email,
 SubscriberID
 FROM {{ source('eco_email_src', 'marketingemails') }} me
-JOIN {{source('eco_transactional_src', 'customer')}} t
+FULL OUTER JOIN {{source('eco_transactional_src', 'customer')}} t
 ON me.subscriberfirstname = t.Customer_First_Name AND me.subscriberlastname = t.Customer_Last_Name
